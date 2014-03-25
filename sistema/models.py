@@ -13,6 +13,9 @@ class TipoIdentificacion(models.Model):
     """
     nombre_identificacion = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = "Tipos de identificaciones"
+
 
 class Genero(models.Model):
     """
@@ -27,12 +30,18 @@ class TipoSangre(models.Model):
     """
     nombre = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = "Tipos de sangre"
+
 
 class EstadoCivil(models.Model):
     """
     Representa los diferentes estados civiles existentes
     """
     nombre = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Estados civiles"
 
 
 class TipoEtnia(models.Model):
@@ -41,12 +50,20 @@ class TipoEtnia(models.Model):
     """
     nombre = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = "Tipos de etnias"
+
 
 class Pais(models.Model):
     """
     Guarda los paises
     """
+    iso = models.CharField(max_length=10, blank=True, null=True, verbose_name='Código ISO')
     nombre = models.CharField(max_length=100)
+    prefijo = models.CharField(max_length=40, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Paises"
 
 
 class Zonal(models.Model):
@@ -56,14 +73,17 @@ class Zonal(models.Model):
     """
     nombre = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = "Zonales"
+
 
 class Provincia(models.Model):
     """
     Provincias principalmente de Ecuador y se relaciona con la zonal
     """
     nombre = models.CharField(max_length=100)
-    pais = models.ForeignKey(Pais)
-    zonal = models.ForeignKey(Zonal)
+    pais = models.ForeignKey(Pais, blank=True, null=True)
+    zonal = models.ForeignKey(Zonal, blank=True, null=True)
 
 
 class Canton(models.Model):
@@ -73,6 +93,9 @@ class Canton(models.Model):
     nombre = models.CharField(max_length=100)
     provincia = models.ForeignKey(Provincia)
 
+    class Meta:
+        verbose_name_plural = "Cantones"
+
 
 class Ciudad(models.Model):
     """
@@ -80,6 +103,9 @@ class Ciudad(models.Model):
     """
     canton = models.ForeignKey(Canton)
     nombre = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name_plural = "Ciudades"
 
 
 class Parroquia(models.Model):
@@ -105,12 +131,18 @@ class CategoriaInstitucion(models.Model):
     """
     nombre = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = "Categorías de institusiones"
+
 
 class TipoInstitucion(models.Model):
     """
     Tipos de empresas: Publicas, Privadas...
     """
     nombre = models.CharField(max_length=299)
+
+    class Meta:
+        verbose_name_plural = "Tipos de institusiones"
 
 
 class Institucion(models.Model):
@@ -119,15 +151,18 @@ class Institucion(models.Model):
     @nombre guarda el nombre de una persona
     """
     nombre = models.CharField(max_length=200)
-    representante = models.CharField(max_length=200)
-    descripcion = models.CharField(max_length=200)
-    email = models.CharField(max_length=200)
-    telf1 = models.CharField(max_length=20)
-    telf2 = models.CharField(max_length=20)
-    direccion = models.CharField(max_length=300)
+    representante = models.CharField(max_length=200, verbose_name='Representante Legal:', blank=True, null=True)
+    descripcion = models.CharField(max_length=200, verbose_name='Descripcion:', blank=True, null=True)
+    email = models.CharField(max_length=200, blank=True, null=True)
+    telf1 = models.CharField(max_length=20, verbose_name='Telefono 1:', blank=True, null=True)
+    telf2 = models.CharField(max_length=20, verbose_name='Telefono 2:', blank=True, null=True)
+    direccion = models.CharField(max_length=300, blank=True, null=True)
     ciudad = models.ForeignKey(Ciudad)
-    categoria_empresa = models.ForeignKey(CategoriaInstitucion)
-    tipo_institucion = models.ForeignKey(TipoInstitucion, null=True, blank=True)
+    categoria_empresa = models.ForeignKey(CategoriaInstitucion, verbose_name='Categoría')
+    tipo_institucion = models.ForeignKey(TipoInstitucion, verbose_name='Tipo de institucion')
+
+    class Meta:
+        verbose_name_plural = "Tipos de institusiones"
 
 
 class NivelInstruccion(models.Model):
@@ -137,12 +172,18 @@ class NivelInstruccion(models.Model):
     """
     nombre = models.CharField(max_length=200)
 
+    class Meta:
+        verbose_name_plural = "Niveles de Instrucciones"
+
 
 class TituloProfesional(models.Model):
     """
     Representa el listado de los títulos profesionales de una persona
     """
     nombre = models.CharField(max_length=300)
+
+    class Meta:
+        verbose_name_plural = "Titulos Profesionales"
 
 
 class Cargo(models.Model):
@@ -159,43 +200,43 @@ class Persona(models.Model):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
     direccion = models.TextField(null=True, blank=True)
-    telefono = models.CharField(max_length=20)
-    telefono_domicilio = models.CharField(max_length=20)
-    celular = models.CharField(max_length=20)
-    fecha_nacimiento = models.DateField(null=True, blank=True)
-    fecha_registro = models.DateField(auto_now=True)
+    telefono = models.CharField(max_length=20, blank=True, null=True)
+    telefono_domicilio = models.CharField(max_length=20, blank=True, null=True)
+    celular = models.CharField(max_length=20, blank=True, null=True)
+    fecha_nacimiento = models.DateField(verbose_name='Fecha de nacimiento', blank=True, null=True)
+    fecha_registro = models.DateField(verbose_name='Fecha de registro', auto_now=True, blank=True, null=True)
 
     #número de la casa.
-    numero_domicilio = models.CharField(max_length=50)
+    numero_domicilio = models.CharField(verbose_name='Numero de domicilio', max_length=50, blank=True, null=True)
 
     #ruc , cedula lo que sea
-    numero_identificacion = models.CharField(max_length=20)
+    numero_identificacion = models.CharField(verbose_name='Número de identificación:', max_length=50)
 
     #Boolean
     discapacidad = models.BooleanField()
 
-    carne_conadis = models.CharField(max_length=50)
-    porcentaje_discapacidad = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    carne_conadis = models.CharField(verbose_name='Nro. Carné de CONADIS:', max_length=50, blank=True, null=True)
+    porcentaje_discapacidad = models.CharField(verbose_name='Porcentaje de discapacidad:', max_length=3, default='0', blank=True, null=True)
 
     #nobre de la persona que se contactará
-    contacto_emergencia = models.CharField(max_length=200)
+    contacto_emergencia = models.CharField(verbose_name='Contacto de emergencia:', max_length=200, blank=True, null=True)
 
-    telefono_emergencia = models.CharField(max_length=20)
-    celular_emergencia = models.CharField(max_length=20)
-    email_emergencia = models.CharField(max_length=200)
+    telefono_emergencia = models.CharField(verbose_name='Teléfono de emergencia:', max_length=20, blank=True, null=True)
+    celular_emergencia = models.CharField(verbose_name='Celular de emergencia:', max_length=20, blank=True, null=True)
+    email_emergencia = models.CharField(verbose_name='Email para emergencia:', max_length=200, blank=True, null=True)
 
     #código de acceso de la tarjeta de ingreso
-    codigo_acceso = models.CharField(max_length=200)
+    codigo_acceso = models.CharField(verbose_name='Acceso al IAEN;', max_length=200, blank=True, null=True)
 
-    foto = models.CharField(max_length=300)
+    foto = models.CharField(max_length=300, blank=True, null=True)
 
     #"estado de la persona: A:Activo , I:Inactivo ,etc "
-    estado = models.CharField(max_length=2)
+    estado = models.CharField(verbose_name='Activo:', max_length=2, blank=True, null=True)
 
     usuario = models.ForeignKey(User, unique=True)
 
     #especifíca si es cédula , pasaporte...
-    tipo_identidad = models.ForeignKey(TipoIdentificacion)
+    tipo_identidad = models.ForeignKey(TipoIdentificacion, blank=True, null=True)
 
     #con la ciudad se tiene la provincia , país.
     ciudad_nacimiento = models.ForeignKey(Ciudad, related_name='ciudad_nacimiento')
@@ -204,7 +245,7 @@ class Persona(models.Model):
     ciudad_residencia = models.ForeignKey(Ciudad, related_name='ciudad_residencia')
 
     #nacionalidad de la personas
-    pais_nacimiento = models.CharField(max_length=100)
+    pais_nacimiento = models.ForeignKey(Pais, related_name='pais_nacimiento')
     estado_civil = models.ForeignKey(EstadoCivil)
     tipo_sangre = models.ForeignKey(TipoSangre)
 
