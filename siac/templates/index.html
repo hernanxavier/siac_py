@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - IAEN</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+<link rel="stylesheet"
+	href="{{ STATIC_URL }}themes/default/css/login.css" type="text/css"
+	media="screen" charset="utf-8">
+
+<script src="{{ STATIC_URL }}IAEN/IAEN.js" type="text/javascript"
+	charset="utf-8"></script>
+<script type="text/javascript">
+	IAEN.BASE_PATH = "{{ STATIC_URL }}";
+	IAEN.DEMO="{{PROJECT_ROOT_PATH}}";
+</script>
+
+</head>
+<body>
+
+	<div id="loading">
+		<img src="{{ STATIC_URL }}themes/default/images/loading.gif"
+			width="120" height="120" alt="Loading..." />
+		<p id="msg">Por favor , espere: Cargando los estilos...</p>
+	</div>
+
+	<link rel="stylesheet"
+		href="{{ STATIC_URL }}themes/default/css/IAENop.css" type="text/css"
+		media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet"
+		href="{{ STATIC_URL }}extjs/resources/css/ext-all.css" type="text/css"
+		media="screen" charset="utf-8" />
+	<script type="text/javascript">
+		document.getElementById('msg').innerHTML = 'Por favor , espere: Cargando archivos ExtJS.';
+	</script>
+	{% csrf_token %}
+	<script src="{{ STATIC_URL }}extjs/ext-all-debug.js"
+		type="text/javascript" charset="utf-8"></script>
+ 
+	<script src="{{ STATIC_URL }}IAEN/core/Ajax.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="{{ STATIC_URL }}IAEN/core/Log.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="{{ STATIC_URL }}IAEN/desktop/Constants.js"
+		type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		document.getElementById('msg').innerHTML = 'Por favor , espere: Generando su interfaz de usuario.';
+	</script>
+
+	<script src="{{ STATIC_URL }}IAEN/modules/login/startup.js"
+		type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home - IAEN</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	
+	<link rel="stylesheet" href="{{ STATIC_URL }}themes/default/css/loading.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
+	<script src="{{ STATIC_URL }}IAEN/IAEN.js" type="text/javascript" charset="utf-8"></script>	
+	<script type="text/javascript">
+	   IAEN.BASE_PATH = "{{ STATIC_URL }}";
+	</script>
+</head>
+<body>
+	
+	<div id="loading-mask"></div>
+	<div id="loading">
+		<img src="{{ STATIC_URL }}themes/default/images/loading.gif" width="120" height="120" alt="Cargando..." />
+		<p id="msg">Por favor , espere: Cargando los estilos...</p>
+	</div>
+	<div>
+	<link rel="stylesheet" href="{{ STATIC_URL }}extjs/resources/css/ext-all.css" type="text/css" media="screen" charset="utf-8" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}themes/default/css/IAENop.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="{{ STATIC_URL }}extjs/ux/statusbar/css/statusbar.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="{{ STATIC_URL }}themes/default/css/modules.css" type="text/css" media="screen" title="no title" charset="utf-8">
+
+	<link rel="stylesheet" href="{{ STATIC_URL }}themes/default/css/icons.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<script type="text/javascript">document.getElementById('msg').innerHTML = 'Por favor , espere: Cargando archivos ExtJS.';</script> 
+	
+	<script src="{{ STATIC_URL }}extjs/ext-all-dev.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ STATIC_URL }}IAEN/core/Ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ STATIC_URL }}IAEN/core/Log.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ STATIC_URL }}IAEN/desktop/Constants.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="{{ STATIC_URL }}IAEN/overrides/Ext.data.proxy.Ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">document.getElementById('msg').innerHTML = 'Por favor , espere: Cargando escritorio de IAEN.';</script> 
+	<script src="{{ STATIC_URL }}IAEN/startup/boot.js" type="text/javascript" charset="utf-8"></script>
+	</div>
+</body>
+</html>

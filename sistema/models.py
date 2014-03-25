@@ -1,4 +1,3 @@
-
 # coding=utf-8
 
 from django.db import models
@@ -12,9 +11,11 @@ class TipoIdentificacion(models.Model):
     Representa tipos de identificación (CI - Pasaporte)
     """
     nombre_identificacion = models.CharField(max_length=100)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre_identificacion)
     class Meta:
-        verbose_name_plural = "Tipos de identificaciones"
+        verbose_name_plural = "Tipo de Identificación"
 
 
 class Genero(models.Model):
@@ -22,6 +23,12 @@ class Genero(models.Model):
     Representa el género de una persona: Masculino, Femenino, etc
     """
     nombre = models.CharField(max_length=100)
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    class Meta:
+        verbose_name_plural = "Género"
+
 
 
 class TipoSangre(models.Model):
@@ -29,9 +36,12 @@ class TipoSangre(models.Model):
     Representa los diversos tipos de sangre existentes
     """
     nombre = models.CharField(max_length=100)
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
 
     class Meta:
-        verbose_name_plural = "Tipos de sangre"
+        verbose_name_plural = "Tipo de Sangre"
 
 
 class EstadoCivil(models.Model):
@@ -39,9 +49,10 @@ class EstadoCivil(models.Model):
     Representa los diferentes estados civiles existentes
     """
     nombre = models.CharField(max_length=100)
-
+    def __unicode__(self):
+        return "%s" %(self.nombre)
     class Meta:
-        verbose_name_plural = "Estados civiles"
+        verbose_name_plural = "Estado Civil"
 
 
 class TipoEtnia(models.Model):
@@ -49,9 +60,11 @@ class TipoEtnia(models.Model):
     Representa las deniminaciones de etnias
     """
     nombre = models.CharField(max_length=100)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
     class Meta:
-        verbose_name_plural = "Tipos de etnias"
+        verbose_name_plural = "Tipo de Etnia"
 
 
 class Pais(models.Model):
@@ -61,9 +74,13 @@ class Pais(models.Model):
     iso = models.CharField(max_length=10, blank=True, null=True, verbose_name='Código ISO')
     nombre = models.CharField(max_length=100)
     prefijo = models.CharField(max_length=40, blank=True, null=True)
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
 
     class Meta:
-        verbose_name_plural = "Paises"
+        verbose_name="País"
+        verbose_name_plural = "Países"
 
 
 class Zonal(models.Model):
@@ -72,7 +89,9 @@ class Zonal(models.Model):
     al ordenamietno territorial de la República del Ecuador
     """
     nombre = models.CharField(max_length=100)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
     class Meta:
         verbose_name_plural = "Zonales"
 
@@ -84,15 +103,20 @@ class Provincia(models.Model):
     nombre = models.CharField(max_length=100)
     pais = models.ForeignKey(Pais, blank=True, null=True)
     zonal = models.ForeignKey(Zonal, blank=True, null=True)
+    
+    def __unicode__(self):
+        return "%s , %s" %(self.nombre , self.pais)
 
 
 class Canton(models.Model):
     """
     Representa los cantones de las provincias del ecuador
     """
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100,verbose_name="Cantón")
     provincia = models.ForeignKey(Provincia)
-
+    
+    def __unicode__(self):
+        return "%s %s" %(self.nombre,self.provincia)
     class Meta:
         verbose_name_plural = "Cantones"
 
@@ -102,10 +126,13 @@ class Ciudad(models.Model):
     Representa las ciudades del mundo
     """
     canton = models.ForeignKey(Canton)
-    nombre = models.CharField(max_length=200)
-
+    nombre = models.CharField(max_length=200,verbose_name="Ciudad")
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    
     class Meta:
-        verbose_name_plural = "Ciudades"
+        verbose_name_plural = "Ciudad"
 
 
 class Parroquia(models.Model):
@@ -114,7 +141,8 @@ class Parroquia(models.Model):
     """
     nombre = models.CharField(max_length=300)
     ciudad = models.ForeignKey(Ciudad)
-
+    def __unicode__(self):
+        return "%s" %(self.nombre)
 
 class Parentesco(models.Model):
     """
@@ -122,6 +150,8 @@ class Parentesco(models.Model):
     o persona tiene con alguien registrado en el sistema
     """
     nombre = models.CharField(max_length=100)
+    def __unicode__(self):
+        return "%s" %(self.nombre)
 
 
 class CategoriaInstitucion(models.Model):
@@ -132,7 +162,7 @@ class CategoriaInstitucion(models.Model):
     nombre = models.CharField(max_length=100)
 
     class Meta:
-        verbose_name_plural = "Categorías de institusiones"
+        verbose_name_plural = "Categoría de Institución"
 
 
 class TipoInstitucion(models.Model):
@@ -140,14 +170,16 @@ class TipoInstitucion(models.Model):
     Tipos de empresas: Publicas, Privadas...
     """
     nombre = models.CharField(max_length=299)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
     class Meta:
-        verbose_name_plural = "Tipos de institusiones"
+        verbose_name_plural = "Tipo de Institución"
 
 
 class Institucion(models.Model):
     """
-    Representa los datos de las institusiones o empresas registradas en el sistema
+    Representa los datos de las instituciones o empresas registradas en el sistema
     @nombre guarda el nombre de una persona
     """
     nombre = models.CharField(max_length=200)
@@ -160,9 +192,11 @@ class Institucion(models.Model):
     ciudad = models.ForeignKey(Ciudad)
     categoria_empresa = models.ForeignKey(CategoriaInstitucion, verbose_name='Categoría')
     tipo_institucion = models.ForeignKey(TipoInstitucion, verbose_name='Tipo de institucion')
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
     class Meta:
-        verbose_name_plural = "Tipos de institusiones"
+        verbose_name_plural = "Tipos de Institución"
 
 
 class NivelInstruccion(models.Model):
@@ -171,9 +205,12 @@ class NivelInstruccion(models.Model):
     Ejemplo:Primaria, Secundaria
     """
     nombre = models.CharField(max_length=200)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    
     class Meta:
-        verbose_name_plural = "Niveles de Instrucciones"
+        verbose_name_plural = "Nivel de Instrucción"
 
 
 class TituloProfesional(models.Model):
@@ -181,7 +218,10 @@ class TituloProfesional(models.Model):
     Representa el listado de los títulos profesionales de una persona
     """
     nombre = models.CharField(max_length=300)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    
     class Meta:
         verbose_name_plural = "Titulos Profesionales"
 
@@ -191,7 +231,12 @@ class Cargo(models.Model):
     Cargos profesionales de personas
     """
     nombre = models.CharField(max_length=300)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    
+    class Meta:
+        verbose_name_plural = "Cargos Profesionales"
 
 class Persona(models.Model):
     """
@@ -226,7 +271,7 @@ class Persona(models.Model):
     email_emergencia = models.CharField(verbose_name='Email para emergencia:', max_length=200, blank=True, null=True)
 
     #código de acceso de la tarjeta de ingreso
-    codigo_acceso = models.CharField(verbose_name='Acceso al IAEN;', max_length=200, blank=True, null=True)
+    codigo_acceso = models.CharField(verbose_name='Acceso al IAEN:', max_length=200, blank=True, null=True)
 
     foto = models.CharField(max_length=300, blank=True, null=True)
 
@@ -254,7 +299,12 @@ class Persona(models.Model):
 
     # etnia de la persona
     etnia = models.ForeignKey(TipoEtnia)
-
+    
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    
+    class Meta:
+        verbose_name_plural = "Persona"
 
 class Subgrupo(models.Model):
     """
@@ -268,6 +318,9 @@ class Subgrupo(models.Model):
     estado = models.BooleanField()
     grupo = models.ForeignKey(Group)
 
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    
 
 class Menu(models.Model):
     """
@@ -290,6 +343,12 @@ class Menu(models.Model):
     estado = models.BooleanField()
 
     descripcion = models.TextField()
+    def __unicode__(self):
+        return "%s" %(self.nombre)
+    
+    class Meta:
+        verbose_name_plural = "Menus"
+
 
 
 class SubgrupoMenu(models.Model):
@@ -309,3 +368,9 @@ class SubgrupoMenu(models.Model):
 
     menu = models.ForeignKey(Menu)
     subgrupo = models.ForeignKey(Subgrupo)
+
+    def __unicode__(self):
+        return "%s" %(self.menu)
+    
+    class Meta:
+        verbose_name_plural = "SubgrupoMenu"
