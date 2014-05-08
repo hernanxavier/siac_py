@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+
+    {% block titulo %} INICIO {% endblock %}
+
+    {% block links_css_script %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/login_style.css" enctype="multipart/form-data" />
+    {% endblock %}
+
+    {% block encabezado %}    {% endblock %}
+
+    {% block contenido %}
+         {% if user.is_authenticated %}
+            <div id="wrapper">
+                <form name="login-form" class="login-form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="header">
+                        <h1>Bienvenido!!! {{ user.username |capfirst }} </h1>
+                        <span>Acaba de ingresar al sistema SIAC</span>
+                        <script>
+                            setTimeout(function()
+                                       { window.location='/registro/inicio/'; }
+                                       ,10);
+                        </script>
+                    </div>
+                    <div class="footer">
+                    <input type="button" name="inicio" value="Iniciar" class="button" onclick="location.href='#'" />
+                    <input type="button" name="salir" value="Salir" class="register" onclick="location.href ='/logout/'">
+                    </div>
+                </form>
+             </div>
+         {% else %}
+            <div id="wrapper">
+                <form name="login-form" class="login-form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="header">
+                        <h1>Iniciar Sesión</h1>
+                        <span>Llene la forma con su usuario y contraseña para ingresar al sistema SIAC</span>
+                    </div>
+                    <div class="content">
+                        <input name="username" type="text" class="input username" placeholder="Username" />
+                        <div class="user-icon"></div>
+                        <input name="password" type="password" class="input password" placeholder="Password" />
+                        <div class="pass-icon"></div>
+                    </div>
+                    <div class="footer">
+                    <input type="submit" name="submit" value="Ingresar" class="button" />
+                    <input type="button" name="registrar" value="Registrar" class="register" onclick="location.href='registro/'" />
+                    </div>
+                </form>
+             </div>
+            <div class="gradient"></div>
+        {% endif %}
+    {% endblock %}
+
+
+
+
+
+
+

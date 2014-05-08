@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    {% block titulo %} REGISTRO {% endblock %}
+
+    {% block links_css_script %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/login_style.css" enctype="multipart/form-data" />
+
+    {% endblock %}
+
+</head>
+    {% block encabezado %}
+    {% endblock %}
+
+    {% block contenido %}
+
+            <div id="wrapper">
+                <form name="." class="login-form" action="" method="post">
+                    {% csrf_token %}
+                    <div class="header">
+                    <h1>Registro de usuario</h1>
+                    <span>Ingrese los datos requeridos para registrar su usuario en el sistema</span>
+                    </div>
+
+                    <div class="content">
+                        <div class="error_input"/> {{ form.usuario.errors }} </div>
+                        {{ form.usuario}}
+                        <div class="error_input"/> {{ form.nombre.errors }} </div>
+                        {{ form.nombre }}
+                        <div class="error_input"/> {{ form.apellido.errors }} </div>
+                        {{ form.apellido }}
+                        <div class="error_input"/> {{ form.email.errors }} </div>
+                        {{ form.email }}
+                        <div class="error_input"/> {{ form.passwd1.errors }} </div>
+                        {{ form.passwd1 }}
+                        <div class="error_input"/> {{ form.passwd2.errors }} </div>
+                        {{ form.passwd2 }}
+                    </div>
+
+                    <div class="footer">
+                        <input type="button" name="iniciar" value="Iniciar" class="register" onclick="location.href='/'" />
+                        <input type="submit" name="submit" value="Registrarse" class="button"  />
+                    </div>
+
+
+
+                </form>
+             </div>
+            <div class="gradient"></div>
+    {% endblock %}
+
+</body>
+</html>
+

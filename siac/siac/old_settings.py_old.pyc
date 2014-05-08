@@ -1,0 +1,193 @@
+# -*- encoding: utf-8 -*-
+
+"""
+Django settings for siac project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+from unipath import Path
+from django.core.urlresolvers import reverse_lazy
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+
+# Guarda la raisz del proyecto siac
+RUTA_PROYECTO = Path(__file__).ancestor(2)
+
+
+# Define directorio para los templates
+TEMPLATE_DIRS = (
+    RUTA_PROYECTO.child('templates'),
+
+)
+
+
+#Define Directorio para los archivos staticos (css, js, img ...)
+STATICFILES_DIRS = (
+    RUTA_PROYECTO.child('static'),
+)
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'op6b7wh8v_)1x+j-4mgb1a68pj2bgo0w&4roz(1%89gpm19nae'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+TEMPLATE_DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = (
+
+    #Tema Para administracion Django http://django-suit.readthedocs.org/en/latest/index.html
+    'suit',
+
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # Extensiones de django (trabaja con pygraphviz que dibuja diagramas entidad relación )
+    'django_extensions',
+
+    # Sistema de migraciones para Django http://south.readthedocs.org/en/latest/installation.html
+    'south',
+
+    # Permisos para Django http://django-guardian.readthedocs.org/en/v1.2/
+    'guardian',
+
+    # Aplicacion que ayuda al ordenamiento de los menus http://django-suit.readthedocs.org/en/latest/sortables.html
+    'mptt',
+
+     # DJANGO ALLAUTH The Django sites framework is required  http://django-allauth.readthedocs.org/en/latest/#
+    #'django.contrib.sites',
+
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount',
+
+    'apps.sistema',
+)
+
+# Django-Allauth
+# SITE_ID = 1
+
+# Configuracion de la Aplicacion Django SUIT
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+
+    # Required by allauth template tags
+    #"django.core.context_processors.request",
+
+    # allauth specific context processors
+    #"allauth.account.context_processors.account",
+    #"allauth.socialaccount.context_processors.socialaccount",
+)
+
+SUIT_CONFIG = {
+
+    'ADMIN_NAME': 'SIAC ADMINISTRACIÓN',
+    'MENU_OPEN_FIRST_CHILD': True,
+    'SHOW REQUIRED ASTERISK': True,
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'LIST_PER_PAGE': 50,
+
+    'MENU_ICONS': {
+        'sites': 'icon-leaf',
+        'auth': 'icon-lock',
+        'sistema': 'icon-cog',
+    },
+}
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+)
+
+##############################################
+
+
+# Variable para Guardian
+ANONYMOUS_USER_ID = -1
+
+
+AUTHENTICATION_BACKENDS = (
+    # this is default
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    #"django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    #"allauth.account.auth_backends.AuthenticationBackend",
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+ROOT_URLCONF = 'siac.urls'
+
+WSGI_APPLICATION = 'siac.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'siac_devel',
+        'USER': 'siac',
+        'PASSWORD': 'siac',
+        'HOST': 'localhost',    # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '5432',      # Set to empty string for default.
+    }
+}
+
+
+MEDIA_ROOT = RUTA_PROYECTO.child('media')
+MEDIA_URL = 'http://127.0.0.1:8000/media/'
+
+# Redireccina si el login fue incorrecto
+LOGIN_URL = reverse_lazy('login')
+
+# Variable que redirecciona cuando el login fue correcto
+LOGIN_REDIRECT_URL = reverse_lazy('login')
+
+# Variable que redirecciona cunado se hace logout
+LOGOUT_URL = reverse_lazy('logout')
+
+
+
+#parámetros para enviar correos
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hernanxavierp@gmail.com'
+EMAIL_HOST_PASSWORD = 'X1v32rPR2012'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

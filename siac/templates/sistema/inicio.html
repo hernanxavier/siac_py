@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+
+{% block links_css_script %}
+
+    <link rel="icon" href="{{ STATIC_URL }}img/favicon.ico">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
+    <link rel="stylesheet" href="{{ STATIC_URL }}/css/base/camera.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}/css/base/component.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}/css/base/style.css">
+
+    <script src="{{ STATIC_URL }}/js/base/jquery.js"></script>
+    <script src="{{ STATIC_URL }}/js/base/jquery-migrate-1.1.1.js"></script>
+    <script src="{{ STATIC_URL }}/js/base/jquery.equalheights.js"></script>
+    <script src="{{ STATIC_URL }}/js/base/jquery.ui.totop.js"></script>
+    <script src="{{ STATIC_URL }}/js/base/jquery.easing.1.3.js"></script>
+    <script src="{{ STATIC_URL }}/js/base/camera.js"></script>
+    <script src="{{ STATIC_URL }}/js/base/snap.svg-min.js"></script>
+
+    <!--[if (gt IE 9)|!(IE)]><!-->
+    <script src="{{ STATIC_URL }}/js/base/jquery.mobile.customized.min.js"></script>
+    <!--<![endif]-->
+    <script>
+        $(document).ready(function () {
+            jQuery('#camera_wrap').camera({
+                loader: false,
+                pagination: true,
+                minHeight: '394',
+                thumbnails: false,
+                height: '40.1875%',
+                caption: false,
+                navigation: false,
+                fx: 'mosaic'
+            });
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        })
+    </script>
+
+{% endblock %}
+
+{% block titulo %} SIAC {% endblock %}
+
+{% block encabezado %}
+    <div class="slider_wrapper">
+        <div id="camera_wrap" class="">
+            <div data-src="{{ STATIC_URL }}img/base/slide.jpg"></div>
+            <div data-src="{{ STATIC_URL }}img/base/slide1.jpg"></div>
+            <div data-src="{{ STATIC_URL }}img/base/slide2.jpg"></div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% comment %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1> INICIO </h1>
+
+</body>
+</html>{% endcomment %}

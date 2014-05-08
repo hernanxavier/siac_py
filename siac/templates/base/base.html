@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title> {% block titulo %} {% endblock %}</title>
+        {% block links_css_script %} {% endblock %}
+        <style> {% block style_css %} {% endblock %} </style>
+    </head>
+
+    <body id="contenido">
+        <header>
+            {% block encabezado %} {% endblock %}
+            <nav>
+                {% block menus %} {% endblock %}
+            </nav>
+        </header>
+        <section class="contenido">
+            {% block contenido %} {% endblock %}
+        </section>
+        <footer>
+            {% block pie %} {% endblock %}
+        </footer>
+    </body>
+</html>
